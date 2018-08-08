@@ -2,16 +2,17 @@ from rtmbot import RtmBot
 from rtmbot.core import Plugin
 
 import secret
-import chatlogic
 
 
 class HelloPlugin(Plugin):
     def process_message(self, data):
-        answer = chatlogic.reply(data["text"])
-        if answer is None:
-            pass
+        if "애란" in data["text"]:
+            self.outputs.append([data["channel"], "불렀어?"])
+        elif "주사위" == data["text"]:
+            die = str(random.randint(1, 6))
+            self.outputs.append([data["channel"], die])
         else:
-            self.outputs.append([data["channel"], answer])
+            pass
 
 
 config = {
