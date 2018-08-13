@@ -16,7 +16,15 @@ def answer(text):
 
 class HelloPlugin(Plugin):
     def process_message(self, data):
-        reply = answer(data["text"])
+        # 메시지를 말머리(prefix)와 나머지 부분(rest)으로 분리
+        prefix, rest = data["text"][:3], data["text"][3:]
+
+        # 말머리가 일치하지 않으면 응답하지 않음
+        if prefix != "애란 ":
+            return
+
+        # 응답
+        reply = answer(rest)
         if reply is not None:
             self.outputs.append([data["channel"], reply])
 
